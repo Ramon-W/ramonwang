@@ -53,79 +53,48 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
+        $(document).ready(function() {
 
+            var TxtType = function(el, toRotate, period) {
+                this.toRotate = toRotate;
+                this.el = el;
+                this.loopNum = 0;
+                this.period = parseInt(period, 10) || 2000;
+                this.txt = '';
+                this.tick();
+                this.isDeleting = false;
+            };
 
+            TxtType.prototype.tick = function() {
+                var i = this.loopNum % this.toRotate.length;
+                var fullTxt = this.toRotate[i];
 
-        // 
-        //
-        //
-        // int num = 3;
-        // const, let, var
-        // const num = 4353;
-        // let num = "2342";
-        // var num = "2342";
-        // 
-        //  num = 5243;
-        // num = "";
+                if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+                }
 
-        var TxtType = function(el, toRotate, period) {
-            this.toRotate = toRotate;
-            this.el = el;
-            this.loopNum = 0;
-            this.period = parseInt(period, 10) || 2000;
-            this.txt = '';
-            this.tick();
-            this.isDeleting = false;
-        };
+                this.el.innerHTML = '<span class="who-typewrite-wrap">'+this.txt+'</span>';
 
-        TxtType.prototype.tick = function() {
-            var i = this.loopNum % this.toRotate.length;
-            var fullTxt = this.toRotate[i];
+                var that = this;
+                var delta = 150 - Math.random() * 100;
 
-            if (this.isDeleting) {
-            this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
-            this.txt = fullTxt.substring(0, this.txt.length + 1);
-            }
+                if (this.isDeleting) { delta /= 2; }
 
-            this.el.innerHTML = '<span class="who-typewrite-wrap">'+this.txt+'</span>';
+                if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+                } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 200;
+                }
 
-            var that = this;
-            var delta = 150 - Math.random() * 100;
-
-            if (this.isDeleting) { delta /= 2; }
-
-            if (!this.isDeleting && this.txt === fullTxt) {
-            delta = this.period;
-            this.isDeleting = true;
-            } else if (this.isDeleting && this.txt === '') {
-            this.isDeleting = false;
-            this.loopNum++;
-            delta = 200;
-            }
-
-            setTimeout(function() {
-            that.tick();
-            }, delta);
-        };
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                setTimeout(function() {
+                that.tick();
+                }, delta);
+            };
 
             var elements = document.getElementsByClassName('who-typewrite');
             for (var i=0; i<elements.length; i++) {
@@ -137,9 +106,7 @@
             }
 
 
-            particlesJS("particles-js", {"particles":{"number":{"value":104,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffa6f9"},"shape":{"type":"circle","stroke":{"width":7,"color":"#000000"},"polygon":{"nb_sides":6},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":true,"speed":0.5594405594405595,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2.3976023976023977,"size_min":0.7992007992007992,"sync":false}},"line_linked":{"enable":true,"distance":126.26362266116361,"color":"#a7eaff","opacity":0.15232414578222467,"width":1},"move":{"enable":true,"speed":4,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":true,"rotateX":3687.8477399907024,"rotateY":3928.359549120531}}},"interactivity":{"detect_on":"window","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":280.1666382439641,"size":4.060386061506726,"duration":6.334202255950492,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
-            const particles = document.getElementsByClassName("particles-js-canvas-el")[0];
-            particles.style.height = "calc(100vh - 95px)"
+            particlesJS("particles-js", {"particles":{"number":{"value":160,"density":{"enable":true,"value_area":800}},"color":{"value":"#724b96"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":true,"speed":0.5,"opacity_min":0,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2,"size_min":0.3,"sync":false}},"line_linked":{"enable":true,"distance":192.40944730386272,"color":"#170002","opacity":0.4489553770423464,"width":1},"move":{"enable":true,"speed":1,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":600}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"repulse"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":255.80432187492372,"size":0,"duration":2,"opacity":0.15429467033725558,"speed":3},"repulse":{"distance":300.4685685514977,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);;
 
 
 
@@ -156,5 +123,6 @@
                     scrollTop: $("#second").offset().top
                 }, 500);
             });
+        });
     </script>
 </html>

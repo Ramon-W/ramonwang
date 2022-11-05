@@ -129,7 +129,7 @@ a {
 #particles-js { 
     position: absolute; 
     width: 100%; 
-    height: 100%;
+    height: calc(100% - 95px);
     z-index: 0;
 }
 .noselect {
